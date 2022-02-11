@@ -95,7 +95,7 @@ void draw(){
       positionx = 0;
       positiony = 0;
       godown = 0;
-      angle = ;
+      angle =PI/6 ;
       zz= 187;
       xxx=0;
       yyy=0;
