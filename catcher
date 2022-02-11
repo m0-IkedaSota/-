@@ -1,0 +1,213 @@
+float ceilingL = 600;
+float ceilingH = 10;
+
+float positionx = 0;
+float positiony = 0;
+
+float dif = 3.0;
+
+float cameraZ;
+float cameraangle=0;
+
+float godown = 0;
+
+float angle = PI/6;
+
+float xx = random(550);
+float yy = random(650);
+
+float xy = random(550);
+float yx = random(650);
+
+float zz = 187;
+
+float xxx=0;
+float yyy=0;
+
+
+void setup(){
+  size(1200,800,P3D);
+  cameraZ=220;
+}
+
+void draw(){
+  background(255);
+  if (keyPressed) {
+    if (keyCode == UP) cameraZ -= 10;
+    if (keyCode == DOWN) cameraZ += 10;
+        if (keyCode == LEFT) cameraangle += 0.03;
+    if (keyCode == RIGHT) cameraangle -= 0.03;
+
+
+  }
+
+  camera(-800*sin(cameraangle), 800*cos(cameraangle), cameraZ, 0.0, 0.0, 0.0, 0.0, 0.0, -1);
+  
+  pushMatrix();
+
+  translate(-275+xx+xxx, -325+yy+yyy, -zz);
+  fill(100);
+  sphere(30);
+
+
+  
+  popMatrix();
+  
+  
+  if(keyPressed){
+    if(key=='a'){
+      positionx -= dif;
+    }
+     if(key=='d'){
+      positionx += dif;
+    }
+     if(key=='w'){
+      positiony -= dif;
+    }
+     if(key=='s'){
+      positiony += dif;
+    }
+    if (key== 'y'){
+      if(positionx <= xx){
+        positionx += 2;
+      }
+      if(positionx > xx){
+        positionx -= 2;
+      }
+       if(positiony <= yy-650){
+        positiony += 2;
+      }
+      if(positiony > yy-650){
+        positiony -= 2;
+      }
+      
+    }
+    
+      
+    
+      if(key =='g'){
+       if(godown  < 100){
+         godown += 1;
+    }
+      }
+      
+       if (key=='r'){
+      positionx = 0;
+      positiony = 0;
+      godown = 0;
+      angle = 0;
+      zz= 187;
+      xxx=0;
+      yyy=0;
+    }
+  }
+  
+  if(godown == 100){
+    angle += 0.01;
+  }
+  if(angle > PI/3){
+    angle = PI/3;
+  }
+  if(angle == PI/3){
+   zz -=1;
+    godown -= 1;
+  }
+  if(godown < 0){
+    godown = 0;
+    positionx += 2;
+    positiony += 2;
+    if(positionx > 550){
+      positionx = 550;
+    }
+     if(positiony > 0){
+      positiony = 0 ;
+    }
+    if((positionx==550)&&(positiony==0)){
+      angle=PI/6;
+    }
+  }
+  if (zz <87){
+    zz = 87;
+    xxx +=2;
+    yyy +=2;
+    if(xxx>550-xx){
+      xxx=550-xx;
+    }
+    if(yyy>650-yy){
+      yyy=650-yy;
+    }
+  }
+  
+ 
+ if((xxx==550-xx)&&(yyy==650-yy)){
+    zz +=10;
+  }
+
+  
+  //天井
+  translate(0,0,280);
+  fill(150);
+  box(ceilingL,ceilingL+100,ceilingH);
+  
+  
+  //横
+  pushMatrix();
+  pushMatrix();
+  translate(0,325+positiony,20);
+  fill(100);
+  box(600,50,10);
+  
+  //縦
+  
+  popMatrix();
+  translate(-275+positionx,0,10);
+  fill(100);
+  box(50,700,10);
+ 
+  //1
+  popMatrix();
+  translate(-275+positionx,325+positiony,-30);
+  fill(100);
+  box(50,50,50);
+  
+  
+   //2
+  translate(0,0,-75-godown);
+  fill(100);
+  box(20,20,400);
+  
+  //3
+  translate(0,0,-215);
+  fill(100);
+  box(70,20,30);
+  
+  //4
+  pushMatrix();
+  translate(-30,0,0);
+
+  rotateY(-angle);
+  translate(-25,0,0);
+  fill(100);
+  box(60,15,10);
+  
+  //4
+  translate(-35,0,-30);
+  fill(100);
+  box(10,15,70);
+  
+  //4
+  popMatrix();
+  translate(30,0,0);
+  
+  rotateY(angle);
+  translate(25,0,0);
+  fill(100);
+  box(60,15,10);
+  
+  //4
+  translate(35,0,-30);
+  fill(100);
+  box(10,15,70);
+  
+
+}
